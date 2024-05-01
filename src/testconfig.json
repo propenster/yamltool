@@ -1,7 +1,7 @@
 {
     "ConnectionStrings": {
-      "CoreDbConnectionString": "server='127.0.0.1:1433'; uid='user1'; database='mydb1'; TrustServerCertificate=True; Min Pool Size=10; Max Pool Size=10000; Connection Timeout=60;",
-      "NcsDbConnectionString": "server='127.0.0.1:1433'; uid='user1'; database='mydb2'; TrustServerCertificate=True; Min Pool Size=10; Max Pool Size=10000; Connection Timeout=60;"
+      "ConnectionString98": "server='127.0.0.1:1433'; uid='user1'; database='mydb1'; TrustServerCertificate=True; Min Pool Size=10; Max Pool Size=10000; Connection Timeout=60;",
+      "ConnectionString1": "server='127.0.0.1:1433'; uid='user1'; database='mydb2'; TrustServerCertificate=True; Min Pool Size=10; Max Pool Size=10000; Connection Timeout=60;"
     },
     "Name": "Faith Olusegun",
     "Username": "propenster",
