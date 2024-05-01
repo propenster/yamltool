@@ -16,8 +16,6 @@ fn main() {
     let mut parser = CsParser::new(lexer);
 
     let parsed_json = parser.parse();
-    //println!("Parsed json >>> {:?}", parsed_json);
-
     let mut writer = OutputWriter::new(parsed_json);
     let out_path = PathBuf::from("./src/output.yml");
     writer.write_output_yaml(out_path.as_path());
@@ -61,11 +59,22 @@ mod tests{
 
         result = scanner.lex();
         assert_eq!(TokenKind::SLITERAL, result.kind);
-
         result = scanner.lex();
         assert_eq!(TokenKind::BLITERAL, result.kind);
     }
 
+    #[test]
+    fn test_scanner_emits_correct_tokens_with_iterator(){
+        let source: String = String::from("{ } \"echo\" true ,");
+
+        let mut scanner = Lexer::new(source);
+        //not gonna lie, this idiomatic rust stuff made things uglier but ok I guess
+        assert_eq!(TokenKind::LCURLY, scanner.next().unwrap().kind); 
+        assert_eq!(TokenKind::RCURLY, scanner.next().unwrap().kind);
+        assert_eq!(TokenKind::SLITERAL, scanner.next().unwrap().kind);
+        assert_eq!(TokenKind::BLITERAL, scanner.next().unwrap().kind);
+        assert_eq!(TokenKind::COMMA, scanner.next().unwrap().kind);       
+    }
 
 
 

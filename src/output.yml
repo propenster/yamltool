@@ -1,26 +1,26 @@
+  - name: ConnectionStrings__ConnectionString98
+  - value: server='127.0.0.1:1433'; uid='user1'; database='mydb1'; TrustServerCertificate=True; Min Pool Size=10; Max Pool Size=10000; Connection Timeout=60;
+  - name: ConnectionStrings__ConnectionString1
+  - value: server='127.0.0.1:1433'; uid='user1'; database='mydb2'; TrustServerCertificate=True; Min Pool Size=10; Max Pool Size=10000; Connection Timeout=60;
+  - name: AppSettings__ApiKey
+  - value: aseh32n3ie42k
   - name: AppSettings__BaseUrl
   - value: https://myexample.com/api
   - name: AppSettings__MaximumNumberOfThreads
   - value: 20
-  - name: AppSettings__ApiKey
-  - value: aseh32n3ie42k
+  - name: Username
+  - value: propenster
+  - name: Name
+  - value: Faith Olusegun
   - name: Logging__Console__LogLevel__Default
   - value: Debug
-  - name: Logging__IncludeScopes
-  - value: false
-  - name: Logging__LogLevel__Default
-  - value: Information
   - name: Logging__LogLevel__System
+  - value: Information
+  - name: Logging__LogLevel__Default
   - value: Information
   - name: Logging__LogLevel__Microsoft
   - value: Debug
-  - name: Name
-  - value: Faith Olusegun
+  - name: Logging__IncludeScopes
+  - value: false
   - name: IsReady
   - value: true
-  - name: Username
-  - value: propenster
-  - name: ConnectionStrings__ConnectionString1
-  - value: server='127.0.0.1:1433'; uid='user1'; database='mydb2'; TrustServerCertificate=True; Min Pool Size=10; Max Pool Size=10000; Connection Timeout=60;
-  - name: ConnectionStrings__ConnectionString98
-  - value: server='127.0.0.1:1433'; uid='user1'; database='mydb1'; TrustServerCertificate=True; Min Pool Size=10; Max Pool Size=10000; Connection Timeout=60;

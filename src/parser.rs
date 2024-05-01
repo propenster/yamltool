@@ -155,7 +155,7 @@ impl Parser for CsParser {
 
     fn next(&mut self) {
         self.current_token = self.next_token.clone();
-        self.next_token = self.lexer.lex();
+        self.next_token = self.lexer.next().unwrap_or(Token::new(TokenKind::EOF, String::new()));
     }
 }
 

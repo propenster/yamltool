@@ -16,31 +16,35 @@ impl Lexer {
             next_char: '\0',
             position: -2,
         };
-        lexer.next();
+        lexer.next_token();
         lexer
     }
 
     //eat whitespaces
     pub fn consume_white_space(&mut self) {
         while self.current_char != '\0' && self.current_char.is_whitespace() {
-            self.next();
+            self.next_token();
         }
     }
     //advance - forward ever, backward never LOL!
-    pub fn next(&mut self) {
+    pub fn next_token(&mut self) {
         self.position += 1;
         self.current_char = self.next_char;
         if self.position <= (self.source.len() as isize - 2) {
-            self.next_char = self.source.chars().nth((self.position + 1) as usize).unwrap_or('\0');
+            self.next_char = self
+                .source
+                .chars()
+                .nth((self.position + 1) as usize)
+                .unwrap_or('\0');
         } else {
             self.next_char = '\0';
         }
     }
 
-    //the powerHouse... Let there be breakage, let there by CaRnAgE! by the order of the 
+    //the powerHouse... Let there be breakage, let there by CaRnAgE! by the order of the
     // Peaky funky Blinders
     pub fn lex(&mut self) -> Token {
-        self.next();
+        self.next_token();
         self.consume_white_space();
         let current_char = self.current_char;
         let char_string = current_char.to_string();
@@ -68,7 +72,7 @@ impl Lexer {
             if self.current_char == '.' {
                 dots += 1;
             }
-            self.next();
+            self.next_token();
         }
         if dots > 1 {
             panic!("Invalid decimal number format");
@@ -85,7 +89,7 @@ impl Lexer {
     fn make_boolean_literal(&mut self) -> Token {
         let current_pos = self.position;
         while self.current_char != '\0' && self.current_char != 'e' {
-            self.next();
+            self.next_token();
         }
         let bool_str = &self.source[current_pos as usize..self.position as usize + 1];
         Token::new(TokenKind::BLITERAL, bool_str.to_lowercase())
@@ -94,22 +98,24 @@ impl Lexer {
     //strings! heck yeah!
     fn make_string_literal(&mut self) -> Token {
         let stop_char = self.current_char;
-        self.next();
+        self.next_token();
         let current_pos = self.position;
         while self.current_char != '\0' && self.current_char != stop_char {
-            self.next();
+            self.next_token();
         }
         let literal = &self.source[current_pos as usize..self.position as usize];
         Token::new(TokenKind::SLITERAL, literal.to_string())
     }
+}
 
-    // fn make_identifier_literal(&mut self) -> Token {
-    //     let current_pos = self.position;
-    //     while self.current_char != '\0' && (self.next_char.is_alphabetic() || self.next_char == '_') {
-    //         self.next();
-    //     }
-    //     let identifier = &self.source[current_pos as usize..self.position as usize + 1];
-    //     Token::new(TokenKind::Identifier, identifier.to_string())
-    //}
+impl Iterator for Lexer {
+    type Item = Token;
 
+    fn next(&mut self) -> Option<Self::Item> {
+        let tok = self.lex();
+        if tok.kind == TokenKind::EOF {
+            return None;
+        }
+        Some(tok)
+    }
 }
