@@ -10,5 +10,18 @@
       "BaseUrl": "https://myexample.com/api",
       "MaximumNumberOfThreads": 20,
       "ApiKey": "aseh32n3ie42k"
+    },
+    "Logging": {
+      "IncludeScopes": false,
+      "LogLevel": {
+        "Default": "Information",
+        "System": "Information",
+        "Microsoft": "Debug"
+      },
+      "Console": {
+        "LogLevel": {
+          "Default": "Debug"
+        }
+      }
     }
 }

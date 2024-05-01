@@ -37,7 +37,6 @@ impl OutputWriter {
         let mut result: String = String::new();
         let dict = self.output_dict.clone().into();
         self.yaml_pretty_print(&dict, &mut result, "");
-        println!("Output >>> {}", result);
         self.write_output(path);
     }
 }
