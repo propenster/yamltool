@@ -161,8 +161,8 @@ impl Parser for CsParser {
 
 fn str_to_bool(input: &str) -> Result<bool, String> {
     match input.trim().to_lowercase().as_str() {
-        "true" | "yes" | "1" => Ok(true),
-        "false" | "no" | "0" => Ok(false),
+        "true" | "1" => Ok(true),
+        "false" | "0" => Ok(false),
         _ => Err(format!("Invalid boolean value: '{}'", input)),
     }
 }
