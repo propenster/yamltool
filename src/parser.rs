@@ -100,6 +100,8 @@ pub struct CsParser {
     pub next_token: Token,
 }
 ///Csharp parser-specific methods
+/// to be honest, I feel like this should be called JSONConfigParser but whatever
+/// let's just go with this for now..
 impl CsParser {
     pub fn new(lexer: Lexer) -> Self {
         let mut parser = CsParser {

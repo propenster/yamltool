@@ -11,7 +11,7 @@ use yamltoolrs::{lexer::Lexer, parser::{CsParser, Parser}, writer::OutputWriter}
 ///this was written in C# before,
 /// I just wanted to experiment and see performance disparities
 fn main() {
-    let source = std::fs::read_to_string("./src/testconfig.json").expect("Invalid file path");
+    let source = std::fs::read_to_string("./src/examples/csharp/testconfig.json").expect("Invalid file path");
     let lexer = Lexer::new(source);
     let mut parser = CsParser::new(lexer);
 
@@ -74,6 +74,21 @@ mod tests{
         assert_eq!(TokenKind::SLITERAL, scanner.next().unwrap().kind);
         assert_eq!(TokenKind::BLITERAL, scanner.next().unwrap().kind);
         assert_eq!(TokenKind::COMMA, scanner.next().unwrap().kind);       
+    }
+
+    #[test]
+    fn test_scanner_skip_comments(){
+        let source: String = String::from("{ //\"echo\" this is a comment\r\n:589,[]");
+
+        let mut scanner = Lexer::new(source);
+        assert_eq!(TokenKind::LCURLY, scanner.next().unwrap().kind); 
+
+        assert!(scanner.next().is_none()); //comment should / MUST not yield a Token
+        assert_eq!(TokenKind::COLON, scanner.next().unwrap().kind);
+        assert_eq!(TokenKind::NLITERAL, scanner.next().unwrap().kind);
+        assert_eq!(TokenKind::COMMA, scanner.next().unwrap().kind);
+        assert_eq!(TokenKind::LSQUARE, scanner.next().unwrap().kind);
+        assert_eq!(TokenKind::RSQUARE, scanner.next().unwrap().kind);
     }
 
 

@@ -20,10 +20,20 @@ impl Lexer {
         lexer
     }
 
-    //eat whitespaces
+    ///eat whitespaces
+    /// I eat whitespaces for breakfast
     pub fn consume_white_space(&mut self) {
         while self.current_char != '\0' && self.current_char.is_whitespace() {
             self.next_token();
+        }
+    }
+    ///some weird people put comments in JSON config files like //this is comment
+    /// there should be nothing like comment in a JSON
+    fn skip_comments(&mut self) {
+        if self.current_char == '/' || self.current_char == '#'{
+            while self.current_char != '\0' && self.current_char != '\n'{
+                self.next_token();
+            }
         }
     }
     //advance - forward ever, backward never LOL!
@@ -56,6 +66,10 @@ impl Lexer {
             '[' => Token::new(TokenKind::LSQUARE, char_string),
             ']' => Token::new(TokenKind::RSQUARE, char_string),
             ',' => Token::new(TokenKind::COMMA, char_string),
+            '/' | '#' => {
+                self.skip_comments();
+                Token::new(TokenKind::EOF, String::new())
+            },
             '"' | '\'' => self.make_string_literal(),
             't' | 'f' => self.make_boolean_literal(),
             //_ if current_char.is_alphabetic() => self.make_identifier_literal(),
@@ -65,6 +79,7 @@ impl Lexer {
     }
 
     //make a wish, pick a number - magic
+    //lex numbers
     fn make_numeric_literal(&mut self) -> Token {
         let current_pos = self.position;
         let mut dots = 0;
@@ -86,6 +101,7 @@ impl Lexer {
     }
 
     //make a boolean, flip the switch (1/0)
+    //lex boolean literals - TF
     fn make_boolean_literal(&mut self) -> Token {
         let current_pos = self.position;
         while self.current_char != '\0' && self.current_char != 'e' {
