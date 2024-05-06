@@ -30,13 +30,20 @@ pub enum Object {
 }
 
 impl Object {
-    fn to_string(&self) -> String {
+    pub fn to_string(&self) -> String {
         match self {
             Object::String(s) => s.clone(),
             Object::Boolean(b) => b.to_string(),
             Object::Number(f) => f.0.to_string(),
             Object::Dictionary(_) => String::from("Dictionary"),
             Object::List(_) => String::from("List"),
+        }
+    }
+    pub fn is_empty(&self) -> bool{
+        match self{
+            Object::Dictionary(obj) => obj.is_empty(),
+            Object::String(s) => s.is_empty(),
+            _ => false
         }
     }
 }
@@ -94,16 +101,16 @@ pub trait Parser {
 
 ///C# (C-Sharp) Parser - we are not parsing C# as a language, we are passing C#-based config files e.g appsettings.json
 ///most C# projects have either appsettings.json [.JSON] or App.config...[XML]
-pub struct CsParser {
-    pub lexer: Lexer,
+pub struct CsParser<'a> {
+    pub lexer: &'a mut Lexer,
     pub current_token: Token,
     pub next_token: Token,
 }
 ///Csharp parser-specific methods
 /// to be honest, I feel like this should be called JSONConfigParser but whatever
 /// let's just go with this for now..
-impl CsParser {
-    pub fn new(lexer: Lexer) -> Self {
+impl<'a> CsParser<'a> {
+    pub fn new(lexer: &'a mut Lexer) -> Self {
         let mut parser = CsParser {
             lexer,
             current_token: Token::new(TokenKind::EOF, "\0".to_string()),
@@ -138,7 +145,7 @@ impl CsParser {
     }
 }
 ///parser for C#-based config files e.g appsettings.json
-impl Parser for CsParser {
+impl<'a> Parser for CsParser<'a> {
     fn parse(&mut self) -> Object {
         self.next();
         if self.current_token.kind == TokenKind::SLITERAL {

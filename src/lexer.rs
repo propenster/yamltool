@@ -1,5 +1,6 @@
 use crate::token::*;
 
+#[derive(Debug)]
 pub struct Lexer {
     source: String,
     current_char: char,
@@ -66,6 +67,7 @@ impl Lexer {
             '[' => Token::new(TokenKind::LSQUARE, char_string),
             ']' => Token::new(TokenKind::RSQUARE, char_string),
             ',' => Token::new(TokenKind::COMMA, char_string),
+            '.' => Token::new(TokenKind::PERIOD, char_string),
             '/' | '#' => {
                 self.skip_comments();
                 Token::new(TokenKind::EOF, String::new())
