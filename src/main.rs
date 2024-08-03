@@ -23,7 +23,6 @@ const VERSION: &str = "1.0.0";
 /// I just wanted to experiment and see performance disparities
 fn main() {
     let num_args = std::env::args().skip(1).len();
-    println!("Number of cmd args >>> {}", num_args);
     let output: String = match num_args {
         0 => String::from(USAGE),
         1 => {
@@ -53,8 +52,7 @@ fn main() {
     println!("{}", output);
 
     println!();
-    println!();
-    println!("Thank you for using yamltoolrs 1.0");
+    println!("Thank you for using yamltool 1.0");
 }
 
 fn process_file(path: &str, lang: String) -> String {

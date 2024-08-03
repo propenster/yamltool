@@ -1,9 +1,7 @@
 
 
 #[derive(Debug,  Clone,  PartialEq)]
-pub enum TokenKind{
-    
-    
+pub enum TokenKind{ 
     LCURLY,
     RCURLY,
     LPAREN,
@@ -13,8 +11,6 @@ pub enum TokenKind{
     PERIOD,
     LSQUARE,
     RSQUARE,
-
-
     
     BLITERAL,
     NLITERAL,
@@ -23,7 +19,6 @@ pub enum TokenKind{
     ILLEGAL,
     EOF,
 }
-
 
 #[derive(Debug, Clone)]
 pub struct Token{
